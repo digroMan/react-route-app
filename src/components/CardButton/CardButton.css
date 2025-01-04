@@ -1,0 +1,19 @@
+.card-button{
+    width: 100%;
+    padding: 20px;
+    background-color: #8472ae;
+    border-radius: 3px;
+    color: #fff;
+    border: none;
+    cursor: pointer;
+    display: block;
+    text-align: start;
+}
+
+.card-button:hover{
+    background-color: #584782;
+}
+
+.card-button_center{
+    text-align: center;
+}

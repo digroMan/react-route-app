@@ -1,0 +1,58 @@
+.journal-form{
+    display: flex;
+    flex-direction: column;
+    row-gap: 15px;
+}
+
+.journal-form__input-container{
+    display: flex;
+    column-gap: 25px;
+    align-items: center;
+}
+
+.journal-form__input{
+    flex-basis: 100%;
+    padding: 0;
+    border: none;
+    border-radius: 5px;
+    border-bottom: 1px solid white;
+    font-family: 'Source Sans 3';
+    font-size: 22px;
+    color: white;
+}
+
+.journal-form__label{
+    display: flex;
+    column-gap: 15px;
+    align-items: center;
+}
+
+.journal-form__label-img{
+    flex-shrink: 0;
+}
+
+.journal-form__label-text{
+    min-width: 45px;
+}
+
+.journal-form__input_title{
+    font-size: 32px;
+    font-weight: 600;
+}
+
+.journal-form__input_invalid{
+    outline: 1px solid red;
+    background-color:firebrick;
+}
+
+.journal-form__textarea{
+    width: 100%;
+    padding: 0;
+    font-family: 'Source Sans 3';
+    font-size: 18px;
+}
+
+.journal-form__textarea_invalid{
+    outline: 1px solid red;
+    background-color:firebrick
+}

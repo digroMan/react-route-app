@@ -22,7 +22,7 @@ export function formReducer (preState, action) {
 	case 'SUBMIT':{
 		const titleValidity = Boolean(preState.values.title?.trim().length);
 		const postValidity = Boolean(preState.values.post?.trim().length);
-		const dateValidity = preState.values.date;
+		const dateValidity = Boolean(preState.values.date);
 		return {
 			...preState,
 			isValid: {
@@ -38,7 +38,7 @@ export function formReducer (preState, action) {
 		return {...preState, values: {...preState.values, [input]: value}};
 	}
 	case 'RESET_FORM': {
-		return {...preState, values: INITIAL_STATE.values};
+		return {...preState, values: INITIAL_STATE.values, isFormReadyToSubmit: INITIAL_STATE.isFormReadyToSubmit};
 	}
 	}
 };

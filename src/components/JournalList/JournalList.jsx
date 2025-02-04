@@ -1,9 +1,17 @@
 import JournalItem from '../JournalItem/JournalItem';
 import CardButton from '../CardButton/CardButton';
 import './JournalList.css';
+import { useContext } from 'react';
+import { UserContext } from '../../context/user.context';
 
 function JournalList({items}) {
-	if(!items.length) return <p>Воспоминаний нет, создайте первое</p>;
+	const {userId} = useContext(UserContext);
+	if(!items.length) return (
+		<>
+			{userId}
+			<p>Воспоминаний нет, создайте первое</p>
+		</>
+	);
 
 	const sortItems = (a,b) => (Number(b.date)-Number(a.date));
 

@@ -1,0 +1,20 @@
+.journal-form__input{
+    flex-basis: 100%;
+    padding: 0;
+    border: none;
+    border-radius: 5px;
+    border-bottom: 1px solid white;
+    font-family: 'Source Sans 3';
+    font-size: 22px;
+    color: white;
+}
+
+.journal-form__input_title{
+    font-size: 32px;
+    font-weight: 600;
+}
+
+.journal-form__input_invalid{
+    outline: 1px solid red;
+    background-color:firebrick;
+}

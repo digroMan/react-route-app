@@ -7,29 +7,34 @@ import Body from './layouts/Body/Body';
 import LeftPanel from './layouts/LeftPanel/LeftPanel';
 import { useLocalStorage } from './hooks/use-localstorage.hook';
 import { ProviderUserContext } from './context/user.context';
+import { useEffect } from 'react';
 
 
-// const INITIAL_DATE = [
-// 	// {
-// 	// 	id: 1,
-// 	// 	title:'Lorem ipsum dolor sit amet.',
-// 	// 	date: new Date(),
-// 	// 	tag:'Lorem qui',
-// 	// 	post: 'Lorem, ipsum dolor sit amet consectetur adipisicing elit. Pariatur, in?'
-// 	// },
-// 	// {
-// 	// 	id: 2,
-// 	// 	title:'Lorem ipsum dolor sit amet.',
-// 	// 	date: new Date(),
-// 	// 	tag:'Lorem qui',
-// 	// 	post: 'Lorem, ipsum dolor sit amet consectetur adipisicing elit. Pariatur, in?'
-// 	// }
-// ];
+const INITIAL_DATE = [
+	{
+		id: 1,
+		title:'Lorem ipsum dolor sit amet.',
+		date: new Date(),
+		tag:'Lorem qui',
+		post: 'Lorem, ipsum dolor sit amet consectetur adipisicing elit. Pariatur, in?'
+	},
+	{
+		id: 2,
+		title:'Lorem ipsum dolor sit amet.',
+		date: new Date(),
+		tag:'Lorem qui',
+		post: 'Lorem, ipsum dolor sit amet consectetur adipisicing elit. Pariatur, in?'
+	}
+];
 
 
 function App() {
 	const [noteList, setNoteList] = useLocalStorage('data');
 
+
+	// useEffect(() => {
+	// 	if(!noteList) setNoteList(INITIAL_DATE);
+	// },[]);
 
 	const handlerAddNote = newNote => {
 		setNoteList(preListNote => [...preListNote, {

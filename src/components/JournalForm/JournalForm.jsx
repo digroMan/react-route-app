@@ -5,7 +5,8 @@ import classnames from 'classnames';
 import { formReducer, INITIAL_STATE } from './JournalForm.state';
 import Input from '../Input/Input';
 
-function JournalForm({onSubmit}) {
+function JournalForm({onSubmit, fillNote}) {
+	// const [formState, setFormState] = useState();
 	const [formState, dispatchForm] = useReducer(formReducer, INITIAL_STATE);
 	const {isValid, isFormReadyToSubmit, values} = formState;
 	const titleRef = useRef();
@@ -14,7 +15,6 @@ function JournalForm({onSubmit}) {
 
 	const focusError = (isValid) => {
 		const {title, date, post} = isValid;
-		// debugger;
 		switch (true) {
 		case !title:
 			titleRef.current.focus();
@@ -47,6 +47,14 @@ function JournalForm({onSubmit}) {
 		dispatchForm({type: 'RESET_FORM'});
 	}, [isFormReadyToSubmit, onSubmit, values]);
 
+	useEffect(() => {
+		if(!fillNote) return;
+		dispatchForm({type: 'EDITING_VALUES', payload: fillNote});
+		// debugger;
+		// titleRef.current.textContent = fillNote.title;
+		// dateRef.current.textContent = fillNote.date;
+		// postRef.current.textContent = fillNote.post;
+	}, [fillNote]);
 
 	const addJournalItem = (e) => {
 		e.preventDefault();

@@ -37,6 +37,18 @@ export function formReducer (preState, action) {
 		const {input, value} = action.payload;
 		return {...preState, values: {...preState.values, [input]: value}};
 	}
+	case 'EDITING_VALUES': {
+		return {
+			...preState,
+			value: {
+				title: action.payload.title,
+				date: action.payload.date,
+				post: action.payload.post,
+				tag: action.payload.tag
+			}
+		};
+		// return {...preState, values: {...preState.values, [input]: value}};
+	}
 	case 'RESET_FORM': {
 		return {...preState, values: INITIAL_STATE.values, isFormReadyToSubmit: INITIAL_STATE.isFormReadyToSubmit};
 	}

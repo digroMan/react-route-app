@@ -4,7 +4,7 @@ import './JournalList.css';
 import { useContext } from 'react';
 import { UserContext } from '../../context/user.context';
 
-function JournalList({items}) {
+function JournalList({items, setItem}) {
 	const {userId} = useContext(UserContext);
 	if(!items.length) return (
 		<>
@@ -18,8 +18,8 @@ function JournalList({items}) {
 	return (
 		<div className='journal-list'>
 			{items.sort(sortItems).map((item) => (
-				<CardButton key={item.id}>
-					<JournalItem  title={item.title} tag={item.tag} date={item.date} post={item.post}/>
+				<CardButton key={item.id} onClick={()=>setItem(item.id)}>
+					<JournalItem id={item.id} title={item.title} tag={item.tag} date={item.date} post={item.post}/>
 				</CardButton>
 			))}
 		</div>

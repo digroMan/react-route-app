@@ -1,12 +1,14 @@
 import style from './JournalForm.module.css';
 import Button from '../Button/Button';
-import { useEffect, useReducer, useRef } from 'react';
+import { useContext, useEffect, useReducer, useRef } from 'react';
 import classnames from 'classnames';
 import { formReducer, INITIAL_STATE } from './JournalForm.state';
 import Input from '../Input/Input';
+import { UserContext } from '../../context/user.context';
 
-function JournalForm({onSubmit, fillNote}) {
+function JournalForm({onSubmit, data}) {
 	// const [formState, setFormState] = useState();
+	const {userId} = useContext(UserContext);
 	const [formState, dispatchForm] = useReducer(formReducer, INITIAL_STATE);
 	const {isValid, isFormReadyToSubmit, values} = formState;
 	const titleRef = useRef();
@@ -44,20 +46,18 @@ function JournalForm({onSubmit, fillNote}) {
 	useEffect(() => {
 		if(!isFormReadyToSubmit) return;
 		onSubmit(values);
-		dispatchForm({type: 'RESET_FORM'});
+		dispatchForm({type: 'CLEAR'});
+		dispatchForm({type: 'SET_USER_ID', payload: userId});
 	}, [isFormReadyToSubmit, onSubmit, values]);
 
 	useEffect(() => {
-		if(!fillNote) return;
-		dispatchForm({type: 'EDITING_VALUES', payload: fillNote});
-		// debugger;
-		// titleRef.current.textContent = fillNote.title;
-		// dateRef.current.textContent = fillNote.date;
-		// postRef.current.textContent = fillNote.post;
-	}, [fillNote]);
+		if(!data) return;
+		dispatchForm({type: 'SET_VALUES', payload: {...data}});
+	}, [data]);
 
 	const addJournalItem = (e) => {
 		e.preventDefault();
+		dispatchForm({type: 'SET_USER_ID', payload: userId});
 		dispatchForm({type: 'SUBMIT'});
 	};
 

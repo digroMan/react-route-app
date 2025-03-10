@@ -6,27 +6,29 @@ import JournalList from './components/JournalList/JournalList';
 import Body from './layouts/Body/Body';
 import LeftPanel from './layouts/LeftPanel/LeftPanel';
 import { useLocalStorage } from './hooks/use-localstorage.hook';
-import { ProviderUserContext } from './context/user.context';
+import { UserContextProvider } from './context/user.context';
 import { useState } from 'react';
 // import { useEffect } from 'react';
 
 
-// const INITIAL_DATE = [
-// 	{
-// 		id: 1,
-// 		title:'Lorem ipsum dolor sit amet.',
-// 		date: new Date(),
-// 		tag:'Lorem qui',
-// 		post: 'Lorem, ipsum dolor sit amet consectetur adipisicing elit. Pariatur, in?'
-// 	},
-// 	{
-// 		id: 2,
-// 		title:'Lorem ipsum dolor sit amet.',
-// 		date: new Date(),
-// 		tag:'Lorem qui',
-// 		post: 'Lorem, ipsum dolor sit amet consectetur adipisicing elit. Pariatur, in?'
-// 	}
-// ];
+const INITIAL_DATE = [
+	{
+		id: 1,
+		userId: 1,
+		title:'Lorem ipsum dolor sit amet.',
+		date: new Date(),
+		tag:'Lorem qui',
+		post: 'Lorem, ipsum dolor sit amet consectetur adipisicing elit. Pariatur, in?'
+	},
+	{
+		id: 2,
+		userId: 2,
+		title:'Lorem ipsum dolor sit amet.',
+		date: new Date(),
+		tag:'Lorem qui',
+		post: 'Lorem, ipsum dolor sit amet consectetur adipisicing elit. Pariatur, in?'
+	}
+];
 
 
 function App() {
@@ -36,6 +38,7 @@ function App() {
 	const handlerAddNote = newNote => {
 		setNoteList(preListNote => [...preListNote, {
 			id: preListNote.length > 0 ? Math.max(...preListNote.map(i => i.id))+ 1 : 1,
+			userId: newNote.userId,
 			title: newNote.title,
 			tag: newNote.tag,
 			post: newNote.post,
@@ -44,18 +47,18 @@ function App() {
 	};
 
 	return (
-		<ProviderUserContext>
+		<UserContextProvider>
 			<div className={style['container-box']}>
 				<LeftPanel>
 					<Header/>
 					<JournalAddButton></JournalAddButton>
-					<JournalList items={noteList} setItem={setSelectedItem}/>
+					<JournalList items={noteList.length !== 0 ? noteList : INITIAL_DATE} defaultItems={INITIAL_DATE} setItem={setSelectedItem}/>
 				</LeftPanel>
 				<Body>
-					<JournalForm onSubmit={handlerAddNote} fillNote={noteList.find(item => item.id === selectedItem)}/>
+					<JournalForm onSubmit={handlerAddNote} data={noteList.find(item => item.id === selectedItem.id)}/>
 				</Body>
 			</div>
-		</ProviderUserContext>
+		</UserContextProvider>
 	);
 }
 

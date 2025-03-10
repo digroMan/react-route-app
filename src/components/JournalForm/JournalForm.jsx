@@ -47,7 +47,6 @@ function JournalForm({onSubmit, data}) {
 		if(!isFormReadyToSubmit) return;
 		onSubmit(values);
 		dispatchForm({type: 'CLEAR'});
-		dispatchForm({type: 'SET_USER_ID', payload: userId});
 	}, [isFormReadyToSubmit, onSubmit, values]);
 
 	useEffect(() => {
@@ -55,9 +54,12 @@ function JournalForm({onSubmit, data}) {
 		dispatchForm({type: 'SET_VALUES', payload: {...data}});
 	}, [data]);
 
+	useEffect(() => {
+		dispatchForm({type: 'SET_VALUES', payload: {userId}});
+	}, [userId]);
+
 	const addJournalItem = (e) => {
 		e.preventDefault();
-		dispatchForm({type: 'SET_USER_ID', payload: userId});
 		dispatchForm({type: 'SUBMIT'});
 	};
 

@@ -1,12 +1,11 @@
-import './Button.css';
+import cn from 'classnames';
+import styles from './Button.module.css';
 
-function Button({text, onClick}) {
+export const Button = ({children, onClick}) => {
 
 	return (
 		<>
-			<button className='button accent' onClick={onClick}>{text}</button>
+			<button className={cn(styles.button, styles.accent)} onClick={onClick}>{children}</button>
 		</>
 	);
-}
-
-export default Button;
+};

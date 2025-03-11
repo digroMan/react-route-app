@@ -1,5 +1,5 @@
-import style from './JournalForm.module.css';
-import Button from '../Button/Button';
+import styles from './JournalForm.module.css';
+import {Button} from '../Button/Button';
 import { useContext, useEffect, useReducer, useRef } from 'react';
 import classnames from 'classnames';
 import { formReducer, INITIAL_STATE } from './JournalForm.state';
@@ -71,7 +71,7 @@ function JournalForm({onSubmit, data}) {
 	
     
 	return (
-		<form className={style['journal-form']} onSubmit={addJournalItem}>
+		<form className={styles['journal-form']} onSubmit={addJournalItem}>
 			<div>
 				<Input 
 					className={'journal-form__input_title'} 
@@ -83,10 +83,10 @@ function JournalForm({onSubmit, data}) {
 					onChange={(evt) => changeValueInput(evt)}
 				/>
 			</div>
-			<div className={style['journal-form__input-container']}>
-				<label className={style['journal-form__label']} htmlFor="date">
-					<img className={style['journal-form__label-img']} src="/calendar.svg" alt="Иконка календаря" />
-					<div className={style['journal-form__label-text']}>Дата:</div>
+			<div className={styles['journal-form__input-container']}>
+				<label className={styles['journal-form__label']} htmlFor="date">
+					<img className={styles['journal-form__label-img']} src="/calendar.svg" alt="Иконка календаря" />
+					<div className={styles['journal-form__label-text']}>Дата:</div>
 				</label>
 				<Input 
 					name='date'
@@ -98,10 +98,10 @@ function JournalForm({onSubmit, data}) {
 					onChange={(evt) => changeValueInput(evt)} 
 				/>
 			</div>
-			<div className={style['journal-form__input-container']}>
-				<label className={style['journal-form__label']} htmlFor="tag">
-					<img className={style['journal-form__label-img']} src="/folder.svg" alt="Иконка папки" />
-					<div className={style['journal-form__label-text']}>Метки:</div>
+			<div className={styles['journal-form__input-container']}>
+				<label className={styles['journal-form__label']} htmlFor="tag">
+					<img className={styles['journal-form__label-img']} src="/folder.svg" alt="Иконка папки" />
+					<div className={styles['journal-form__label-text']}>Метки:</div>
 				</label>
 				<Input 
 					name='tag' 
@@ -112,8 +112,8 @@ function JournalForm({onSubmit, data}) {
 				/>
 			</div>
 			<textarea 
-				className={classnames(style['journal-form__textarea'], {
-					[style['journal-form__textarea_invalid']] : !isValid.post
+				className={classnames(styles['journal-form__textarea'], {
+					[styles['journal-form__textarea_invalid']] : !isValid.post
 				})} 
 				name='post'
 				ref={postRef}
@@ -122,7 +122,7 @@ function JournalForm({onSubmit, data}) {
 				cols={30} 
 				rows={10}
 			/>
-			<Button text="Сохранить"/>
+			<Button>Сохранить</Button>
 		</form>
 
 	);

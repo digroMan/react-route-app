@@ -34,8 +34,6 @@ function App() {
 	const [noteList, setNoteList] = useLocalStorage('data');
 	const [selectedItem, setSelectedItem] = useState({});
 
-	console.log('App');
-
 	const handlerAddNote = newNote => {
 		setNoteList([...noteList, {
 			id: noteList.length > 0 ? Math.max(...noteList.map(i => i.id))+ 1 : 1,

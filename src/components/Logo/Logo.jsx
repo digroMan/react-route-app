@@ -1,12 +1,12 @@
 import styles from './Logo.module.css';
 import { memo } from 'react';
 
-function Logo () {
+function Logo ({imgSrc}) {
 
 	console.log('Logo');
 
 	return (
-		<img className={styles.logo} src={'./vite.svg'} alt="Логотип" />
+		<img className={styles.logo} src={imgSrc} alt="Логотип" />
 	);
 }
 

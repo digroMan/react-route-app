@@ -1,5 +1,5 @@
 import styles from './JournalForm.module.css';
-import {Button} from '../Button/Button';
+import Button from '../Button/Button';
 import { useContext, useEffect, useReducer, useRef } from 'react';
 import classnames from 'classnames';
 import { formReducer, INITIAL_STATE } from './JournalForm.state';
@@ -7,7 +7,6 @@ import Input from '../Input/Input';
 import { UserContext } from '../../context/user.context';
 
 function JournalForm({onSubmit, data}) {
-	// const [formState, setFormState] = useState();
 	const {userId} = useContext(UserContext);
 	const [formState, dispatchForm] = useReducer(formReducer, INITIAL_STATE);
 	const {isValid, isFormReadyToSubmit, values} = formState;

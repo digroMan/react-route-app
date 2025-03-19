@@ -7,8 +7,6 @@ const logos = ['./cart.svg' , './vite.svg'];
 
 function Header() {
 	const [logoIndex, setLogoIndex] = useState(0);
-
-	console.log('Header');
 	
 	const toggleLogo = () => {
 		setLogoIndex(preState => Number(!preState));

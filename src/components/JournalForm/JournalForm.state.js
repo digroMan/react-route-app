@@ -1,4 +1,6 @@
 export const INITIAL_STATE = {
+	id: null,
+	userId: null,
 	isValid: { // Форма валидна по умолчанию
 		title: true,
 		date: true,
@@ -8,8 +10,7 @@ export const INITIAL_STATE = {
 		title: '',
 		date: '',
 		post: '',
-		tag: '',
-		userId: null
+		tag: ''
 	},
 	isFormReadyToSubmit: false // Готовность формы к сабмиту
 };
@@ -20,15 +21,19 @@ export function formReducer (preState, action) {
 	switch (action.type) {
 	case 'SET_VALUES':
 		return {...preState, values: {...preState.values, ...action.payload}};
+	case 'SET_ID':
+		return {...preState, id: action.payload};
+	case 'SET_USER_ID':
+		return {...preState, userId: action.payload};
 	case 'CLEAR':
-		return {...preState, values: INITIAL_STATE.values, isFormReadyToSubmit: INITIAL_STATE.isFormReadyToSubmit};
+		return {...preState, values: INITIAL_STATE.values, isFormReadyToSubmit: INITIAL_STATE.isFormReadyToSubmit, id: INITIAL_STATE.id};
 	case 'RESET_VALIDITY':
 		return {...preState, isValid: INITIAL_STATE.isValid};
 	case 'SUBMIT':{
 		const titleValidity = Boolean(preState.values.title?.trim().length);
 		const postValidity = Boolean(preState.values.post?.trim().length);
 		const dateValidity = Boolean(preState.values.date);
-		const hasUser = Boolean(preState.values.userId);
+		const hasUser = Boolean(preState.userId);
 		return {
 			...preState,
 			isValid: {
@@ -36,7 +41,7 @@ export function formReducer (preState, action) {
 				date: dateValidity,
 				post: postValidity
 			},
-			isFormReadyToSubmit: titleValidity && postValidity && dateValidity & hasUser
+			isFormReadyToSubmit: titleValidity && postValidity && dateValidity && hasUser
 		};
 	};
 	case 'FILL_VALUES': {

@@ -41,6 +41,17 @@ function App() {
 		}]);
 	};
 
+	const handlerEditNote = modifiedNote => {
+		;
+		const editableNote = noteList.find(item => item.id === modifiedNote.id);
+
+		const newNoteList = noteList.filter(item => item.id !== modifiedNote.id);
+
+		
+		debugger;
+		setNoteList([...newNoteList, {...editableNote, ...modifiedNote}]);
+	};
+
 	return (
 		<UserContextProvider>
 			<div className={style['container-box']}>
@@ -50,7 +61,7 @@ function App() {
 					<JournalList items={noteList} setItem={setSelectedItem}/>
 				</LeftPanel>
 				<Body>
-					<JournalForm onSubmit={handlerAddNote} data={noteList.find(item => item.id === selectedItem.id)}/>
+					<JournalForm onSubmit={handlerAddNote} onSubmitEdit={handlerEditNote} data={noteList.find(item => item.id === selectedItem.id)}/>
 				</Body>
 			</div>
 		</UserContextProvider>

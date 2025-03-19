@@ -10,45 +10,32 @@ import { UserContextProvider } from './context/user.context';
 import { useState } from 'react';
 
 
-// const INITIAL_DATE = [
-// 	{
-// 		id: 1,
-// 		userId: 1,
-// 		title:'Lorem ipsum dolor sit amet.',
-// 		date: new Date(),
-// 		tag:'Lorem qui',
-// 		post: 'Lorem, ipsum dolor sit amet consectetur adipisicing elit. Pariatur, in?'
-// 	},
-// 	{
-// 		id: 2,
-// 		userId: 2,
-// 		title:'Lorem ipsum dolor sit amet.',
-// 		date: new Date(),
-// 		tag:'Lorem qui',
-// 		post: 'Lorem, ipsum dolor sit amet consectetur adipisicing elit. Pariatur, in?'
-// 	}
-// ];
-
-
 function App() {
 	const [noteList, setNoteList] = useLocalStorage('data');
 	const [selectedItem, setSelectedItem] = useState({});
 
 	const handlerAddNote = newNote => {
-		setNoteList([...noteList, {
-			id: noteList.length > 0 ? Math.max(...noteList.map(i => i.id))+ 1 : 1,
-			...newNote
-		}]);
+		// Проверить id, они не прилеют в localStorage
+		debugger;
+		if(!newNote.id){
+			setNoteList([...noteList, {
+				id: noteList.length > 0 ? Math.max(...noteList.map(i => i.id))+ 1 : 1,
+				...newNote
+			}]);
+		}
+		if(newNote.id){
+			setNoteList([...noteList.map(noteItem =>{
+				if(noteItem.id === newNote.id){
+					return {...newNote};
+				}
+				return noteItem;
+			})]);
+		}
 	};
 
 	const handlerEditNote = modifiedNote => {
-		;
 		const editableNote = noteList.find(item => item.id === modifiedNote.id);
-
 		const newNoteList = noteList.filter(item => item.id !== modifiedNote.id);
-
-		
-		debugger;
 		setNoteList([...newNoteList, {...editableNote, ...modifiedNote}]);
 	};
 
@@ -61,7 +48,7 @@ function App() {
 					<JournalList items={noteList} setItem={setSelectedItem}/>
 				</LeftPanel>
 				<Body>
-					<JournalForm onSubmit={handlerAddNote} onSubmitEdit={handlerEditNote} data={noteList.find(item => item.id === selectedItem.id)}/>
+					<JournalForm onSubmit={handlerAddNote} onSubmitEdit={handlerEditNote} data={selectedItem}/>
 				</Body>
 			</div>
 		</UserContextProvider>

@@ -6,10 +6,10 @@ import { formReducer, INITIAL_STATE } from './JournalForm.state';
 import Input from '../Input/Input';
 import { UserContext } from '../../context/user.context';
 
-function JournalForm({onSubmit, onSubmitEdit, data}) {
+function JournalForm({onSubmit, data}) {
 	const {userId} = useContext(UserContext);
 	const [formState, dispatchForm] = useReducer(formReducer, INITIAL_STATE);
-	const {isValid, isFormReadyToSubmit, values, id} = formState;
+	const {isValid, isFormReadyToSubmit, values} = formState;
 	const titleRef = useRef();
 	const dateRef = useRef();
 	const postRef = useRef();
@@ -46,17 +46,16 @@ function JournalForm({onSubmit, onSubmitEdit, data}) {
 		if(!isFormReadyToSubmit) return;
 		onSubmit({...values, userId, id});
 		dispatchForm({type: 'CLEAR'});
-	}, [isFormReadyToSubmit, onSubmit, values, onSubmitEdit]);
+		dispatchForm({type: 'SET_VALUES', payload: {userId}});
+	}, [isFormReadyToSubmit, onSubmit, values, userId]);
 
 	useEffect(() => {
 		if(!data) return;
-		const {id, userId, ...noteData} = data;
-		dispatchForm({type: 'SET_ID', payload: id});
-		dispatchForm({type: 'SET_VALUES', payload: {...noteData}});
+		dispatchForm({type: 'SET_VALUES', payload: {...data}});
 	}, [data]);
 
 	useEffect(() => {
-		dispatchForm({type: 'SET_USER_ID', payload: userId});
+		dispatchForm({type: 'SET_VALUES', payload: {userId}});
 	}, [userId]);
 
 	const addJournalItem = (e) => {

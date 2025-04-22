@@ -1,6 +1,4 @@
 export const INITIAL_STATE = {
-	id: null,
-	userId: null,
 	isValid: { // Форма валидна по умолчанию
 		title: true,
 		date: true,
@@ -10,7 +8,9 @@ export const INITIAL_STATE = {
 		title: '',
 		date: '',
 		post: '',
-		tag: ''
+		tag: '',
+		userId: null
+		// id: 0
 	},
 	isFormReadyToSubmit: false // Готовность формы к сабмиту
 };
@@ -21,10 +21,10 @@ export function formReducer (preState, action) {
 	switch (action.type) {
 	case 'SET_VALUES':
 		return {...preState, values: {...preState.values, ...action.payload}};
-	case 'SET_ID':
-		return {...preState, id: action.payload};
-	case 'SET_USER_ID':
-		return {...preState, userId: action.payload};
+	// case 'SET_ID':
+	// 	return {...preState, id: action.payload};
+	// case 'SET_USER_ID':
+	// 	return {...preState, userId: action.payload};
 	case 'CLEAR':
 		return {...INITIAL_STATE};
 		// return {...preState, values: INITIAL_STATE.values, isFormReadyToSubmit: INITIAL_STATE.isFormReadyToSubmit, id: INITIAL_STATE.id};

@@ -44,8 +44,7 @@ function JournalForm({onSubmit, onSubmitEdit, data}) {
 
 	useEffect(() => {
 		if(!isFormReadyToSubmit) return;
-		if (id) onSubmitEdit({...values, id });
-		if (!id) onSubmit({...values, userId});
+		onSubmit({...values, userId, id});
 		dispatchForm({type: 'CLEAR'});
 	}, [isFormReadyToSubmit, onSubmit, values, onSubmitEdit]);
 

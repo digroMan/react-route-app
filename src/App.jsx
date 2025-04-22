@@ -35,21 +35,18 @@ function App() {
 	const [selectedItem, setSelectedItem] = useState({});
 
 	const handlerAddNote = newNote => {
-		setNoteList([...noteList, {
-			id: noteList.length > 0 ? Math.max(...noteList.map(i => i.id))+ 1 : 1,
-			...newNote
-		}]);
-	};
-
-	const handlerEditNote = modifiedNote => {
-		;
-		const editableNote = noteList.find(item => item.id === modifiedNote.id);
-
-		const newNoteList = noteList.filter(item => item.id !== modifiedNote.id);
-
-		
-		debugger;
-		setNoteList([...newNoteList, {...editableNote, ...modifiedNote}]);
+		if(!newNote.id){
+			setNoteList([...noteList, {
+				id: noteList.length > 0 ? Math.max(...noteList.map(i => i.id))+ 1 : 1,
+				...newNote
+			}]);
+		}
+		if(newNote.id){
+			setNoteList([...noteList.map(item =>{ 
+				if(item.id === newNote.id) return newNote; 
+				else return item;
+			})]);            
+		}
 	};
 
 	return (
@@ -61,7 +58,10 @@ function App() {
 					<JournalList items={noteList} setItem={setSelectedItem}/>
 				</LeftPanel>
 				<Body>
-					<JournalForm onSubmit={handlerAddNote} onSubmitEdit={handlerEditNote} data={noteList.find(item => item.id === selectedItem.id)}/>
+					<JournalForm 
+						onSubmit={handlerAddNote} 
+						data={noteList.find(item => item.id === selectedItem.id)}
+					/>
 				</Body>
 			</div>
 		</UserContextProvider>

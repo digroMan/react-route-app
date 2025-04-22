@@ -26,7 +26,8 @@ export function formReducer (preState, action) {
 	case 'SET_USER_ID':
 		return {...preState, userId: action.payload};
 	case 'CLEAR':
-		return {...preState, values: INITIAL_STATE.values, isFormReadyToSubmit: INITIAL_STATE.isFormReadyToSubmit, id: INITIAL_STATE.id};
+		return {...INITIAL_STATE};
+		// return {...preState, values: INITIAL_STATE.values, isFormReadyToSubmit: INITIAL_STATE.isFormReadyToSubmit, id: INITIAL_STATE.id};
 	case 'RESET_VALIDITY':
 		return {...preState, isValid: INITIAL_STATE.isValid};
 	case 'SUBMIT':{
@@ -34,6 +35,7 @@ export function formReducer (preState, action) {
 		const postValidity = Boolean(preState.values.post?.trim().length);
 		const dateValidity = Boolean(preState.values.date);
 		const hasUser = Boolean(preState.userId);
+		debugger;
 		return {
 			...preState,
 			isValid: {

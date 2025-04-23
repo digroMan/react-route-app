@@ -17,8 +17,8 @@ function App() {
 	const handlerAddNote = newNote => {
 		if(!newNote.id){
 			setNoteList([...noteList, {
-				id: noteList.length > 0 ? Math.max(...noteList.map(i => i.id))+ 1 : 1,
-				...newNote
+				...newNote,
+				id: noteList.length > 0 ? Math.max(...noteList.map(i => i.id))+ 1 : 1
 			}]);
 		}
 		if(newNote.id){

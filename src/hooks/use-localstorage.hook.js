@@ -18,11 +18,10 @@ export function useLocalStorage(key) {
 	}, []);
 
 	const saveData = (newData) => {
-		if(!newData.length) return;
+		// if(!newData.length) return;
 		localStorage.setItem(key, JSON.stringify(newData));
 		setData(newData);
 	};
-
 
 	return [data, saveData];
 }

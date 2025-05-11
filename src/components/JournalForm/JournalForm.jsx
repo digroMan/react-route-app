@@ -6,7 +6,7 @@ import { formReducer, INITIAL_STATE } from './JournalForm.state';
 import Input from '../Input/Input';
 import { UserContext } from '../../context/user.context';
 
-function JournalForm({onSubmit, data}) {
+function JournalForm({onSubmit, onDeletingNote, data}) {
 	const {userId} = useContext(UserContext);
 	const [formState, dispatchForm] = useReducer(formReducer, INITIAL_STATE);
 	const {isValid, isFormReadyToSubmit, values} = formState;
@@ -43,7 +43,6 @@ function JournalForm({onSubmit, data}) {
 	}, [isValid]);
 
 	useEffect(() => {
-		console.log(isFormReadyToSubmit);
 		if(!isFormReadyToSubmit) return;
 		onSubmit({...values, userId});
 		dispatchForm({type: 'CLEAR'});
@@ -51,7 +50,10 @@ function JournalForm({onSubmit, data}) {
 	}, [isFormReadyToSubmit, onSubmit, values, userId]);
 
 	useEffect(() => {
-		if(!data) return;
+		if(!data) {
+			dispatchForm({type: 'CLEAR'});
+			dispatchForm({type: 'SET_VALUES', payload: {userId}});
+		};
 		dispatchForm({type: 'SET_VALUES', payload: {...data}});
 	}, [data]);
 
@@ -69,11 +71,17 @@ function JournalForm({onSubmit, data}) {
 		const dataInput = {input: name, value: inputValue};
 		dispatchForm({type: 'FILL_VALUES', payload: dataInput});
 	};
+
+	const deleteJournalItem = () => {
+ 		onDeletingNote(data.id);
+		dispatchForm({type: 'CLEAR'});
+		dispatchForm({type: 'SET_VALUES', payload: {userId}});
+	}; 
 	
     
 	return (
 		<form className={styles['journal-form']} onSubmit={addJournalItem}>
-			<div>
+			<div className={styles['journal-form__title-container']}>
 				<Input 
 					className={'journal-form__input_title'} 
 					isValid={isValid.title}
@@ -83,6 +91,11 @@ function JournalForm({onSubmit, data}) {
 					value={values.title}
 					onChange={(evt) => changeValueInput(evt)}
 				/>
+				{data && 
+					<button className={styles['journal-form__input-button']} onClick={deleteJournalItem} type='button'>
+						<img className={styles['journal-form__svg-delete']} src="/delete.svg" alt="" />
+					</button>
+				}
 			</div>
 			<div className={styles['journal-form__input-container']}>
 				<label className={styles['journal-form__label']} htmlFor="date">

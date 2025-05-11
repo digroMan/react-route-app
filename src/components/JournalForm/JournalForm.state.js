@@ -20,8 +20,8 @@ export function formReducer (preState, action) {
 	case 'SET_VALUES':
 		return {...preState, values: {...preState.values, ...action.payload}};
 	case 'CLEAR':
-		debugger;
-		return {...preState, ...INITIAL_STATE};
+		// return {...preState, ...INITIAL_STATE};
+		return {...INITIAL_STATE};
 	case 'RESET_VALIDITY':
 		return {...preState, isValid: INITIAL_STATE.isValid};
 	case 'SUBMIT':{

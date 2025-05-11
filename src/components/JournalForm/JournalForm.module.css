@@ -35,8 +35,9 @@
     min-width: 45px;
 }
 
-.journal-form__input_title{
-    font-size: 32px;
+.journal-form__input_title {
+    max-width: 300px;
+    font-size: 42px;
     font-weight: 600;
 }
 
@@ -55,4 +56,22 @@
 .journal-form__textarea_invalid{
     outline: 1px solid red;
     background-color:firebrick
+}
+
+.journal-form__svg-delete{
+    width: 50px;
+    height: auto;
+}
+
+.journal-form__title-container {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.journal-form__input-button{
+    background-color: #181818;
+    cursor: pointer;
+    border: 0;
+    margin-left: 50px;
 }
